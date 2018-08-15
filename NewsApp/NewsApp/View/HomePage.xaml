@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             x:Class="NewsApp.View.HomePage">
+    <AbsoluteLayout>
+        <ActivityIndicator Color="Black" IsEnabled="True" IsRunning="{Binding Loading}"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        <ListView x:Name="list" ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
+                  ItemsSource="{Binding Articles}"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding UrlToImage}" Text="{Binding Title}" TextColor="Black" Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </AbsoluteLayout>
+</ContentPage>

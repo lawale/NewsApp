@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NewsApp.Model
 {
@@ -7,7 +8,7 @@ namespace NewsApp.Model
     {
         public string Status { get; set; }
         public int TotalResults { get; set; }
-        public List<Article> Articles { get; set; }
+        public ObservableCollection<Article> Articles { get; set; }
     }
 
     public class Source

@@ -2,6 +2,8 @@ using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using NewsApp.View;
+
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace NewsApp
 {
@@ -11,7 +13,7 @@ namespace NewsApp
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+			MainPage = new NavigationPage(new HomePage());
 		}
 
 		protected override void OnStart ()
