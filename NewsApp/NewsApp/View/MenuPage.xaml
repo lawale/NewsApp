@@ -11,6 +11,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Bookmarks" Clicked="Button_Clicked" />
     </StackLayout>
 </ContentPage>

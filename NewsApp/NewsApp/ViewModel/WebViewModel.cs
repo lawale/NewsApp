@@ -23,6 +23,10 @@ namespace NewsApp.ViewModel
         public ICommand SearchPageCommand;
         public ICommand NavigatingCommand;
         public ICommand RefreshPageCommand;
+        public ICommand GoBackCommand { get; set; }
+        public ICommand GoForwardCommand { get; set; }
+        public bool CanGoBack { get; set; }
+        public bool CanGoForward { get; set; }
 
         public bool IsBoomarked
         {

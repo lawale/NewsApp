@@ -19,7 +19,6 @@ namespace NewsApp.View
 		}
 
         private void WebView_Navigated(object sender, WebNavigatedEventArgs e) => ViewModel.SetLoading(false);
-        private void IView_Navigating(object sender, WebNavigatingEventArgs e) => ViewModel.SetLoading(true);
 
         private WebViewModel ViewModel => BindingContext as WebViewModel;
 
@@ -27,7 +26,7 @@ namespace NewsApp.View
         {
             if (IView.CanGoBack)
             {
-                IView.GoBack();
+                ViewModel.GoBackCommand.Execute(null);
                 return true;
             }
             else
@@ -38,7 +37,7 @@ namespace NewsApp.View
         {
             if (IView.CanGoForward)
             {
-                IView.GoForward();
+                ViewModel.GoForwardCommand.Execute(null);
             }
             else
                 return;

@@ -33,10 +33,5 @@ namespace NewsApp.View
 
         private MenuViewModel ViewModel
         { get { return BindingContext as MenuViewModel; } }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new CheckView(services));
-        }
     }
 }

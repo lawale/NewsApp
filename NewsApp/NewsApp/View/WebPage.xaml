@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:NewsApp.View"
              xmlns:local="clr-namespace:NewsApp.Extensions"
              NavigationPage.HasNavigationBar="True"
              
@@ -21,7 +22,9 @@
         <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}"
                            HeightRequest="50" WidthRequest="50"
                            AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
-        <WebView x:Name="IView" Source="{Binding Url}" Navigated="WebView_Navigated" Navigating="IView_Navigating"
-                 AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+        
+        <view:CustomWebView x:Name="IView" Source="{Binding Url}"  Forward="{Binding GoForwardCommand}"
+                            Back="{Binding GoBackCommand}" Navigated="WebView_Navigated" Navigating="IView_Navigating"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
     </AbsoluteLayout>
 </ContentPage>
