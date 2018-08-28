@@ -6,6 +6,7 @@ namespace NewsApp.Helpers
 {
     public static class Categories
     {
+        public static readonly string topstories = "top stories";
         public static readonly string business = "business";
         public static readonly string entertainment = "entertainment";
         public static readonly string health = "health";

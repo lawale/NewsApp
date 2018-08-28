@@ -1,8 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:NewsApp.Extensions"
+             NavigationPage.HasNavigationBar="True"
+             
              x:Class="NewsApp.View.WebPage">
-    <WebView x:Name="browser">
-    </WebView>
+    <ContentPage.Resources>
+        <local:WebPageTitleConverter x:Key="TitleConverter"></local:WebPageTitleConverter>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="" Order="Secondary" Text="Next Page" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem Order="Secondary" Text="Share" Command="{Binding ShareCommand}" />
+        <!--<ToolbarItem Order="Secondary" Text="Refresh Page" Command="{Binding RefreshPageCommand}" />-->
+        <ToolbarItem Icon="" Order="Secondary" Text="Bookmark Page" Command="{Binding BookmarkCommand}" />
+        <!--<ToolbarItem Icon="" Order="Secondary" Text="Search" Command="{Binding SearchPageCommand}" />-->
+        <!--<ToolbarItem Order="Secondary" Text="Download" Command="{Binding DownloadPageCommand}" />-->
+        <ToolbarItem Order="Secondary" Text="Open in browser" Command="{Binding OpenBrowserCommand}" />
+    </ContentPage.ToolbarItems>
+    <AbsoluteLayout>
+        <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}"
+                           HeightRequest="50" WidthRequest="50"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        <WebView x:Name="IView" Source="{Binding Url}" Navigated="WebView_Navigated" Navigating="IView_Navigating"
+                 AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
+    </AbsoluteLayout>
 </ContentPage>

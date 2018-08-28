@@ -16,28 +16,11 @@ using NewsApp.ViewModel;
 namespace NewsApp.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class HomePage : ContentPage
+	public partial class HomePage : MasterDetailPage
 	{
 		public HomePage ()
 		{
 			InitializeComponent ();
-            BindingContext = new TopHeadlinesViewModel();
-        }
-
-        protected override void OnAppearing()
-        {
-            ViewModel.LoadArticles.Execute(null);
-            base.OnAppearing();
-        }
-
-        private TopHeadlinesViewModel ViewModel
-        {
-            get { return BindingContext as TopHeadlinesViewModel; }
-        }
-
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ViewModel.SelectArticle.Execute(null);
         }
     }
 }

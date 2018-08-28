@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewsApp.View.MenuPage">
+    <StackLayout>
+        <Image Source="" Aspect="AspectFill" HeightRequest="150" IsOpaque="True" Opacity="20"/>
+        <ListView ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedNewsCategory}" ItemsSource="{Binding Categories}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding CategoryImage}" Text="{Binding CategoryName}" TextColor="Black" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Bookmarks" Clicked="Button_Clicked" />
+    </StackLayout>
+</ContentPage>
