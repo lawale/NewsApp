@@ -14,11 +14,11 @@ namespace NewsApp.View
         public static readonly BindableProperty ForwardProperty =
             BindableProperty.Create(nameof(Back), typeof(ICommand), typeof(CustomWebView),null,BindingMode.OneWayToSource);
 
-        //public static readonly BindableProperty CanMoveBackProperty =
-        //    BindableProperty.Create(nameof(CanMoveBack), typeof(bool), typeof(CustomWebView), null, BindingMode.OneWayToSource);
+        public static readonly BindableProperty CanMoveBackProperty =
+            BindableProperty.Create(nameof(CanMoveBack), typeof(bool), typeof(CustomWebView), false, BindingMode.OneWayToSource);
 
-        //public static readonly BindableProperty CanMoveForwardProperty =
-        //    BindableProperty.Create(nameof(CanMoveForward), typeof(bool), typeof(CustomWebView), null, BindingMode.OneWayToSource);
+        public static readonly BindableProperty CanMoveForwardProperty =
+            BindableProperty.Create(nameof(CanMoveForward), typeof(bool), typeof(CustomWebView), false, BindingMode.OneWayToSource);
         
 
         public CustomWebView()
@@ -27,17 +27,17 @@ namespace NewsApp.View
             Forward = new Command(GoForward);
         }
 
-        //public bool CanMoveBack
-        //{
-        //    get { return (bool)GetValue(CanMoveBackProperty); }
-        //    set { SetValue(CanMoveBackProperty, CanGoBack); }
-        //}
+        public bool CanMoveBack
+        {
+            get { return (bool)GetValue(CanMoveBackProperty); }
+            set { SetValue(CanMoveBackProperty, value); }
+        }
 
-        //public bool CanMoveForward
-        //{
-        //    get { return (bool)GetValue(CanMoveForwardProperty); }
-        //    set { SetValue(CanMoveForwardProperty, CanGoForward); }
-        //}
+        public bool CanMoveForward
+        {
+            get { return (bool)GetValue(CanMoveForwardProperty); }
+            set { SetValue(CanMoveForwardProperty, value); }
+        }
 
         public ICommand Forward
         {

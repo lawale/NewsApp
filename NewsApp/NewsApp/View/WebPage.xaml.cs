@@ -24,7 +24,7 @@ namespace NewsApp.View
 
         protected override bool OnBackButtonPressed()
         {
-            if (IView.CanGoBack)
+            if (ViewModel.CanGoBack)
             {
                 ViewModel.GoBackCommand.Execute(null);
                 return true;
@@ -35,7 +35,7 @@ namespace NewsApp.View
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            if (IView.CanGoForward)
+            if (ViewModel.CanGoForward)
             {
                 ViewModel.GoForwardCommand.Execute(null);
             }

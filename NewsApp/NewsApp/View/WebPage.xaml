@@ -10,7 +10,7 @@
         <local:WebPageTitleConverter x:Key="TitleConverter"></local:WebPageTitleConverter>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="" Order="Secondary" Text="Next Page" Clicked="ToolbarItem_Clicked" />
+        <ToolbarItem Icon="" Order="Secondary" Text="Next Page" Command="{Binding GoForwardCommand}" />
         <ToolbarItem Order="Secondary" Text="Share" Command="{Binding ShareCommand}" />
         <!--<ToolbarItem Order="Secondary" Text="Refresh Page" Command="{Binding RefreshPageCommand}" />-->
         <ToolbarItem Icon="" Order="Secondary" Text="Bookmark Page" Command="{Binding BookmarkCommand}" />
@@ -24,7 +24,8 @@
                            AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
         
         <view:CustomWebView x:Name="IView" Source="{Binding Url}"  Forward="{Binding GoForwardCommand}"
-                            Back="{Binding GoBackCommand}" Navigated="WebView_Navigated" Navigating="IView_Navigating"
+                            CanMoveBack="{Binding CanGoBack}" CanMoveForward="{Binding CanGoForward}"
+                            Back="{Binding GoBackCommand}" Navigated="WebView_Navigated"
                             AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" />
     </AbsoluteLayout>
 </ContentPage>
