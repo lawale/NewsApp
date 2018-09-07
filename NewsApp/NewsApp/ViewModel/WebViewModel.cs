@@ -27,6 +27,10 @@ namespace NewsApp.ViewModel
         public ICommand GoForwardCommand { get; set; }
         public bool CanGoBack { get; set; }
         public bool CanGoForward { get; set; }
+        public string WebTitle
+        {
+            get => new Uri(_url).Host;
+        }
 
         public bool IsBoomarked
         {

@@ -24,14 +24,10 @@ namespace NewsApp.ViewModel
 
         public NewsCategory SelectedNewsCategory
         {
-            get { return selectedNewsCategory; }
+            get => selectedNewsCategory;
             set { selectedNewsCategory = value; }
         }
-
-        public List<NewsCategory> NewsCategories
-        {
-            get { return _categories; }
-        }
+        
         public MenuViewModel(IServices service)
         {
             _newsCategories = new List<NewsViewModel>();

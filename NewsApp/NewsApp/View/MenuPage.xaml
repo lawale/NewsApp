@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewsApp.View.MenuPage">
     <StackLayout>
-        <Image Source="" Aspect="AspectFill" HeightRequest="150" IsOpaque="True" Opacity="20"/>
+        <Image Source="ic_n.png" Aspect="AspectFill" HeightRequest="150" IsOpaque="True" Opacity="20"/>
         <ListView ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedNewsCategory}" ItemsSource="{Binding Categories}">
             <ListView.ItemTemplate>
                 <DataTemplate>

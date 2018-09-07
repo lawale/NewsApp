@@ -1,40 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:NewsApp.Extensions"
+             xmlns:local="clr-namespace:NewsApp.Converters"
              BackgroundColor="White"
+             Title="{Binding Title}"
              x:Class="NewsApp.View.ArticlesPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:DnsConverter x:Key="TimeFormatConverter"></local:DnsConverter>
+            <local:DateConverter x:Key="DateConvert"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
         <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}"
                            HeightRequest="50" WidthRequest="50"
                            AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
-        <ListView ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
+        <ListView x:Name="list" ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
                   ItemsSource="{Binding Articles}" RefreshCommand="{Binding RefreshArticles}" IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding Refreshed}" HasUnevenRows="False" RowHeight="500"
+                  IsRefreshing="{Binding Refreshed}" HasUnevenRows="True" RowHeight="400"
                   AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid RowSpacing="10" BackgroundColor="#DDE3E5" Padding="10,0,10,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="250"/>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill" HeightRequest="250" Grid.Row="0"/>
-                            <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
-                            <StackLayout Orientation="Horizontal" Grid.Row="2">
-                                <Label Text="{Binding Path=Source.Name, StringFormat='Source {0}'}" TextColor="Black" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                                <!--<Label Text="{Binding PublishedAt, Converter={StaticResource TimeFormatConverter}, StringFormat='Time: {0}'}" TextColor="Black" FontSize="20" HorizontalOptions="EndAndExpand"/>-->
-                            </StackLayout>
-                            <Label Text="{Binding Description}" TextColor="Black" Grid.Row="3" FontSize="20" HorizontalTextAlignment="Start" />
-                        </Grid>
+                        <StackLayout BackgroundColor="White" Padding="10,0,10,10">
+                            <Grid RowSpacing="10" BackgroundColor="#11DDBA" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="250"/>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Image BackgroundColor="Black" Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
+                                <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
+                                <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+                                <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+                                <Button x:Name="readBtn" Text="Read Article" BorderRadius="13" BackgroundColor="#1A86F1"
+                                    Command="{Binding SelectArticle}" HorizontalOptions="Center" Grid.Row="4" />
+                            </Grid>
+                        </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

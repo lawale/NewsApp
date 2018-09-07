@@ -16,6 +16,7 @@ namespace NewsApp.View
 		public ArticlesPage (NewsViewModel viewModel)
 		{
 			InitializeComponent ();
+            
             BindingContext = viewModel;
 		}
 

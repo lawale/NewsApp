@@ -4,11 +4,8 @@
              xmlns:view="clr-namespace:NewsApp.View"
              xmlns:local="clr-namespace:NewsApp.Extensions"
              NavigationPage.HasNavigationBar="True"
-             
+             Title="{Binding WebTitle}"
              x:Class="NewsApp.View.WebPage">
-    <ContentPage.Resources>
-        <local:WebPageTitleConverter x:Key="TitleConverter"></local:WebPageTitleConverter>
-    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="" Order="Secondary" Text="Next Page" Command="{Binding GoForwardCommand}" />
         <ToolbarItem Order="Secondary" Text="Share" Command="{Binding ShareCommand}" />

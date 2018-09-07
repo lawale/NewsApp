@@ -31,7 +31,6 @@ namespace NewsApp.View
             ViewModel.LoadCategory.Execute(null);
         }
 
-        private MenuViewModel ViewModel
-        { get { return BindingContext as MenuViewModel; } }
+        private MenuViewModel ViewModel => BindingContext as MenuViewModel;
     }
 }

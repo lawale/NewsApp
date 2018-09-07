@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
+using Xamarin.Forms;
 
 namespace NewsApp.Droid
 {
@@ -22,8 +23,6 @@ namespace NewsApp.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
-            
-            
             LoadApplication(new App());
         }
 

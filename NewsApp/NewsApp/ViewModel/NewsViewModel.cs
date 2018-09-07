@@ -3,6 +3,7 @@ using NewsApp.Helpers;
 using NewsApp.Model;
 using NewsApp.View;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,10 +26,12 @@ namespace NewsApp.ViewModel
         private bool Refreshed { get; set; }
         private Article _selectedArticle;
         private bool _refreshed;
+        private IToast Toast = DependencyService.Get<IToast>();
         private bool _loading;
         public ICommand LoadArticles { get; private set; }
         public ICommand SelectArticle { get; private set; }
         public ICommand RefreshArticles { get; private set; }
+        public string Title => category.CategoryName;
 
         public NewsViewModel(NewsCategory category, IServices service)
         {
@@ -43,29 +46,14 @@ namespace NewsApp.ViewModel
 
         public Article SelectedArticle
         {
-            get
-            {
-                return _selectedArticle;
-            }
+            get => _selectedArticle;
             set
             {
                 _selectedArticle = value;
             }
         }
-        public bool Loading
-        {
-            get
-            {
-                return _loading;
-            }
-        }
-        public ObservableCollection<Article> Articles
-        {
-            get
-            {
-                return _articles;
-            }
-        }
+        public bool Loading { get => _loading; }
+        public ObservableCollection<Article> Articles { get => _articles; }
 
         private async Task GetNews()
         {
@@ -75,13 +63,42 @@ namespace NewsApp.ViewModel
                 url = Constants.TopStories;
             else
                 url = Constants.CategoryStories(category.CategoryName.ToLower());
+            if(CrossConnectivity.IsSupported)
+            {
+                if(!CrossConnectivity.Current.IsConnected)
+                {
+                    Toast.Show("No Internet Connection");
+                    SetValue(ref _loading, false);
+                    OnPropertyChanged(nameof(Loading));
+                    return;
+                }
+            }
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync(url);
-                var json = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<News>(json);
-                news = result.Articles;
+                client.Timeout = TimeSpan.FromSeconds(20);
+                try
+                {
+                    using (HttpResponseMessage response = await client.GetAsync(url))
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<News>(json);
+                        if (result.Status == StatusCode.error)
+                        {
+                            Toast.Show("Cannot retrieve news feed at the moment");
+                            SetValue(ref _loading, false);
+                            OnPropertyChanged(nameof(Loading));
+                            return;
+                        }
+                        news = result.Articles;
+                    }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Source);
+                    Console.WriteLine(e.Message);
+                }
             }
+
             var empty = Articles.Where(x => x.UrlToImage == null);
             foreach (var image in empty)
             {

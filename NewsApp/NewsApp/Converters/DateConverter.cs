@@ -4,22 +4,21 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NewsApp.Extensions
+namespace NewsApp.Converters
 {
-    class DnsConverter : IValueConverter
+    public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var IsValidDate = DateTime.TryParse((string)value, out DateTime date);
-            if (IsValidDate)
+            DateTime date = (DateTime)value;
+            if (value != null)
             {
-                var day = date.Date.DayOfWeek;
-                var month = date.ToString("MMMM");
-                var year = date.Year;
-                return $"{month} {day}, {year}";
+                return date.ToString("D");
             }
             else
-                return "Unknown";
+            {
+                return "Date Pusblished: Unknown";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

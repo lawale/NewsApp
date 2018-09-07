@@ -45,7 +45,6 @@ namespace NewsApp.Extensions
         public void SetDetailPage(Page page)
         {
             Home.Detail = new NavigationPage(page);
-            GC.Collect(0);
         }
 
         public void SetIsPresented(bool value)

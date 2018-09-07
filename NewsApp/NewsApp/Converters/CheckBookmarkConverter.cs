@@ -4,16 +4,17 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NewsApp.Extensions
+namespace NewsApp.Converters
 {
-    public class WebPageTitleConverter : IValueConverter
+    public class CheckBookmarkConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var uri = new Uri((string)value);
-            var DomainName = uri.Host;
-            var Link = uri.AbsoluteUri;
-            return $"{DomainName}\n{Link}";
+            if((bool)value)
+            { return "ic_IsBookmarked.png"; }
+            else
+            { return "ic_NotBookmarked"; }
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
