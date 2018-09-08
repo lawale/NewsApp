@@ -57,7 +57,7 @@ namespace NewsApp.ViewModel
                 return;
             var PageViewModel = _newsCategories.Find(x => x.category == selectedNewsCategory);
             services.SetIsPresented(false);
-            services.SetDetailPage(new ArticlesPage(PageViewModel));
+            services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
             SetValue(ref selectedNewsCategory, null);
             OnPropertyChanged(nameof(SelectedNewsCategory));
         }

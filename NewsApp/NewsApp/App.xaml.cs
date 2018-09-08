@@ -25,7 +25,7 @@ namespace NewsApp
             services = new Service(ref HomePage, ref NavigationPage);
             MenuPage = new MenuPage(new MenuViewModel(services), services) { Title = "Categories" };
             //NavigationPage = new NavigationPage(new View1(services));
-            NavigationPage = new NavigationPage(new ArticlesPage(new NewsViewModel(new NewsCategory { CategoryName = topstories }, services)));
+            NavigationPage = new NavigationPage(new ArticlesPage { BindingContext = new NewsViewModel(new NewsCategory { CategoryName = topstories }, services) });
             HomePage.Master = MenuPage;
             HomePage.Detail = NavigationPage;
             MainPage = HomePage;

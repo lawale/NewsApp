@@ -13,11 +13,9 @@ namespace NewsApp.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ArticlesPage : ContentPage
 	{
-		public ArticlesPage (NewsViewModel viewModel)
+		public ArticlesPage ()
 		{
 			InitializeComponent ();
-            
-            BindingContext = viewModel;
 		}
 
         protected override void OnAppearing()
@@ -29,15 +27,7 @@ namespace NewsApp.View
 
         private NewsViewModel ViewModel
         {
-            get
-            {
-                return BindingContext as NewsViewModel;
-            }
+            get => BindingContext as NewsViewModel;
         } 
-
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ViewModel.SelectArticle.Execute(null);
-        }
     }
 }

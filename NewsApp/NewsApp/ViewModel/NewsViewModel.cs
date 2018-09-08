@@ -24,13 +24,14 @@ namespace NewsApp.ViewModel
         private ObservableCollection<Article> _articles;
         private bool Loaded { get; set; }
         private bool Refreshed { get; set; }
-        private Article _selectedArticle;
+        //private Article _selectedArticle;
         private bool _refreshed;
         private IToast Toast = DependencyService.Get<IToast>();
         private bool _loading;
         public ICommand LoadArticles { get; private set; }
         public ICommand SelectArticle { get; private set; }
         public ICommand RefreshArticles { get; private set; }
+        public ICommand ReadArticleCommand { get; private set; }
         public string Title => category.CategoryName;
 
         public NewsViewModel(NewsCategory category, IServices service)
@@ -40,18 +41,20 @@ namespace NewsApp.ViewModel
             services = service;
             _articles = new ObservableCollection<Article>();
             LoadArticles = new Command(async () => await GetNews());
-            SelectArticle = new Command(async () => await LoadArticle());
+            //SelectArticle = new Command(async () => await LoadArticle());
             RefreshArticles = new Command(async () => await Refresh());
+            ReadArticleCommand = new Command<Article>(async vm => await ReadArticle(vm));
         }
 
-        public Article SelectedArticle
-        {
-            get => _selectedArticle;
-            set
-            {
-                _selectedArticle = value;
-            }
-        }
+        
+        //public Article SelectedArticle
+        //{
+        //    get => _selectedArticle;
+        //    set
+        //    {
+        //        _selectedArticle = value;
+        //    }
+        //}
         public bool Loading { get => _loading; }
         public ObservableCollection<Article> Articles { get => _articles; }
 
@@ -110,15 +113,17 @@ namespace NewsApp.ViewModel
             OnPropertyChanged(nameof(Loading));
         }
 
-        private async Task LoadArticle()
-        {
-            if (_selectedArticle == null)
-                return;
-            var model = new WebViewModel(_selectedArticle.Url, services);
-            await services.NavigationPushAsync(new WebPage(model));
-            SetValue(ref _selectedArticle, null);
-            OnPropertyChanged(nameof(SelectedArticle));
-        }
+        #region Implementation of Article Selection
+        //private async Task LoadArticle()
+        //{
+        //    if (_selectedArticle == null)
+        //        return;
+        //    var model = new WebViewModel(_selectedArticle.Url, services);
+        //    await services.NavigationPushAsync(new WebPage(model));
+        //    SetValue(ref _selectedArticle, null);
+        //    OnPropertyChanged(nameof(SelectedArticle));
+        //}
+        #endregion
 
         private async Task Refresh()
         {
@@ -126,6 +131,12 @@ namespace NewsApp.ViewModel
             await GetNews();
             SetValue(ref _refreshed, true);
             OnPropertyChanged(nameof(Refreshed));
+        }
+
+        private async Task ReadArticle(Article article)
+        {
+            var model = new WebViewModel(article.Url, services);
+            await services.NavigationPushAsync(new WebPage {BindingContext = model });
         }
     }
 }

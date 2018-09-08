@@ -12,10 +12,9 @@ namespace NewsApp.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class WebPage : ContentPage
 	{
-		public WebPage (WebViewModel model)
+		public WebPage ()
 		{
 			InitializeComponent ();
-            BindingContext = model;
 		}
 
         private void WebView_Navigated(object sender, WebNavigatedEventArgs e) => ViewModel.SetLoading(false);

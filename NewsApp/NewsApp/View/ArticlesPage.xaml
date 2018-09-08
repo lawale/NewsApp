@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsApp.Converters"
-             BackgroundColor="White"
+             BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
              x:Class="NewsApp.View.ArticlesPage">
     <ContentPage.Resources>
@@ -14,15 +14,14 @@
         <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}"
                            HeightRequest="50" WidthRequest="50"
                            AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
-        <ListView x:Name="list" ItemSelected="ListView_ItemSelected" SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
+        <ListView x:Name="list" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
                   ItemsSource="{Binding Articles}" RefreshCommand="{Binding RefreshArticles}" IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding Refreshed}" HasUnevenRows="True" RowHeight="400"
-                  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                  IsRefreshing="{Binding Refreshed}" HasUnevenRows="True" RowHeight="400" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout BackgroundColor="White" Padding="10,0,10,10">
-                            <Grid RowSpacing="10" BackgroundColor="#11DDBA" >
+                            <Grid x:Name="Item" RowSpacing="10" BackgroundColor="#11DDBA" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="250"/>
                                     <RowDefinition Height="*" />
@@ -34,8 +33,10 @@
                                 <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
                                 <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
                                 <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
-                                <Button x:Name="readBtn" Text="Read Article" BorderRadius="13" BackgroundColor="#1A86F1"
-                                    Command="{Binding SelectArticle}" HorizontalOptions="Center" Grid.Row="4" />
+                                <Button BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                        Text="Read Article" BorderRadius="13" BackgroundColor="#1A86F1"
+                                        CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                        Command="{Binding ReadArticleCommand}" HorizontalOptions="Center" Grid.Row="4" />
                             </Grid>
                         </StackLayout>
                     </ViewCell>
