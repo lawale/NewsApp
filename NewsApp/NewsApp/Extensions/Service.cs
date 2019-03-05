@@ -11,18 +11,13 @@ namespace NewsApp.Extensions
 {
     public class Service : IServices
     {
-        private List<LinkViewModel> links;
         private HomePage Home;
         //private NavigationPage NavigationPage;
-        public List<LinkViewModel> Bookmarks()
-        {
-            return links;
-        }
         public Service(ref HomePage home, ref NavigationPage navigationPage)
         {
-            links = new List<LinkViewModel>();
             Home = home;
             //NavigationPage = navigationPage;
+            
         }
         public async Task<Page> NavigationPopAsync()
         {
@@ -55,25 +50,6 @@ namespace NewsApp.Extensions
         public async Task NavigationPopToRoot()
         {
             await MainPage.Detail.Navigation.PopToRootAsync();
-        }
-
-        public bool GetBookmarks(LinkViewModel url)
-        {
-            var exists = links.Contains(url);
-            return exists;
-        }
-
-        public void BookmarkLink(LinkViewModel model)
-        {
-            links.Add(model);
-        }
-
-        public void RemoveBookmark(LinkViewModel url)
-        {
-            if (GetBookmarks(url))
-                links.Remove(url);
-            else
-                return;
         }
     }
 }

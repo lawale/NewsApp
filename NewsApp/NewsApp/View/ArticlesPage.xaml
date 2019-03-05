@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsApp.Converters"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
              x:Class="NewsApp.View.ArticlesPage">
@@ -11,9 +12,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}"
-                           HeightRequest="50" WidthRequest="50"
-                           AbsoluteLayout.LayoutBounds="0.5,0.5,100,100" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        
         <ListView x:Name="list" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
                   ItemsSource="{Binding Articles}" RefreshCommand="{Binding RefreshArticles}" IsPullToRefreshEnabled="True"
                   IsRefreshing="{Binding Refreshed}" HasUnevenRows="True" RowHeight="400" SelectionMode="None">
@@ -29,7 +28,7 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Image Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
+                                <ffimageloading:CachedImage Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
                                 <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
                                 <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
                                 <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
@@ -43,5 +42,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.5,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}" VerticalOptions="Center" HorizontalOptions="Center" />
+        </StackLayout>
+
     </AbsoluteLayout>
 </ContentPage>
