@@ -58,7 +58,7 @@ namespace NewsApp.ViewModel
         public bool Loading { get => _loading; }
         public ObservableCollection<Article> Articles { get => _articles; }
 
-        private async Task GetNews()
+        private async Task<bool> GetNews()
         {
             var news = new ObservableCollection<Article>();
             string url;
@@ -73,7 +73,7 @@ namespace NewsApp.ViewModel
                     Toast.Show("No Internet Connection");
                     SetValue(ref _loading, false);
                     OnPropertyChanged(nameof(Loading));
-                    return;
+                    return false;
                 }
             }
             using (HttpClient client = new HttpClient())
@@ -90,15 +90,16 @@ namespace NewsApp.ViewModel
                             Toast.Show("Cannot retrieve news feed at the moment");
                             SetValue(ref _loading, false);
                             OnPropertyChanged(nameof(Loading));
-                            return;
+                            return false;
                         }
                         news = result.Articles;
                     }
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
-                    Console.WriteLine(e.Source);
-                    Console.WriteLine(e.Message);
+                    //Console.WriteLine(e.Source);
+                    //Console.WriteLine(e.Message);
+                    return false;
                 }
             }
 
@@ -111,6 +112,7 @@ namespace NewsApp.ViewModel
                 _articles.Add(article);
             SetValue(ref _loading, false);
             OnPropertyChanged(nameof(Loading));
+            return true;
         }
 
         #region Implementation of Article Selection
@@ -127,8 +129,9 @@ namespace NewsApp.ViewModel
 
         private async Task Refresh()
         {
-            _articles.Clear();
-            await GetNews();
+            var gotNews = await GetNews();
+            if(gotNews)
+                _articles.Clear();
             SetValue(ref _refreshed, true);
             OnPropertyChanged(nameof(Refreshed));
         }

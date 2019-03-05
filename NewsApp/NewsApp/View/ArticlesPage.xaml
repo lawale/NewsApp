@@ -20,8 +20,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout BackgroundColor="White" Padding="10,0,10,10">
-                            <Grid x:Name="Item" RowSpacing="10" BackgroundColor="#11DDBA" >
+                        <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" HasShadow="True">
+                            <Grid x:Name="Item" RowSpacing="10" BackgroundColor="Transparent" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="250"/>
                                     <RowDefinition Height="*" />
@@ -29,7 +29,7 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <Image BackgroundColor="Black" Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
+                                <Image Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
                                 <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
                                 <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
                                 <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
@@ -38,7 +38,7 @@
                                         CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
                                         Command="{Binding ReadArticleCommand}" HorizontalOptions="Center" Grid.Row="4" />
                             </Grid>
-                        </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
