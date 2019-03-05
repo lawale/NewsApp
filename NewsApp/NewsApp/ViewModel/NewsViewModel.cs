@@ -138,8 +138,7 @@ namespace NewsApp.ViewModel
 
         private async Task ReadArticle(Article article)
         {
-            var model = new WebViewModel(article.Url, services);
-            await services.NavigationPushAsync(new WebPage {BindingContext = model });
+            await Xamarin.Essentials.Browser.OpenAsync(article.Url, Xamarin.Essentials.BrowserLaunchMode.SystemPreferred);
         }
     }
 }

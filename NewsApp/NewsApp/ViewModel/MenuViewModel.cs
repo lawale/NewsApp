@@ -17,15 +17,25 @@ namespace NewsApp.ViewModel
 
         private readonly IServices services;
         private NewsCategory selectedNewsCategory;
-        private readonly List<NewsCategory> _categories;
-        private readonly List<NewsViewModel> _newsCategories;
+        private List<NewsCategory> _categories;
+        private List<NewsViewModel> _newsCategories;
         public ICommand LoadCategory { get; private set; }
-        public List<NewsCategory> Categories { get { return _categories; } }
+        public List<NewsCategory> Categories
+        {
+            get => _categories;
+            set
+            {
+                SetValue(ref _categories, value);
+            }
+        }
 
         public NewsCategory SelectedNewsCategory
         {
             get => selectedNewsCategory;
-            set { selectedNewsCategory = value; }
+            set
+            {
+                SetValue(ref selectedNewsCategory, value);
+            }
         }
         
         public MenuViewModel(IServices service)
@@ -58,8 +68,7 @@ namespace NewsApp.ViewModel
             var PageViewModel = _newsCategories.Find(x => x.category == selectedNewsCategory);
             services.SetIsPresented(false);
             services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
-            SetValue(ref selectedNewsCategory, null);
-            OnPropertyChanged(nameof(SelectedNewsCategory));
+            SelectedNewsCategory = null;
         }
     }
 }
