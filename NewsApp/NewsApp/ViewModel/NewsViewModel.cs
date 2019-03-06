@@ -23,7 +23,11 @@ namespace NewsApp.ViewModel
         private readonly IServices services;
         private ObservableCollection<Article> _articles;
         private bool Loaded { get; set; }
-        private bool Refreshed { get; set; }
+        private bool Refreshed
+        {
+            get => _refreshed;
+            set => SetValue(ref _refreshed, value);
+        }
         //private Article _selectedArticle;
         private bool _refreshed;
         private IToast Toast = DependencyService.Get<IToast>();
@@ -32,7 +36,7 @@ namespace NewsApp.ViewModel
         public ICommand SelectArticle { get; private set; }
         public ICommand RefreshArticles { get; private set; }
         public ICommand ReadArticleCommand { get; private set; }
-        public string Title => category.CategoryName;
+        public string Title => category.CategoryName.ToUpper();
 
         public NewsViewModel(NewsCategory category, IServices service)
         {
@@ -55,7 +59,11 @@ namespace NewsApp.ViewModel
         //        _selectedArticle = value;
         //    }
         //}
-        public bool Loading { get => _loading; }
+        public bool Loading
+        {
+            get => _loading;
+            set => SetValue(ref _loading, value);
+        }
         public ObservableCollection<Article> Articles { get => _articles; }
 
         private async Task<bool> GetNews()
@@ -68,11 +76,10 @@ namespace NewsApp.ViewModel
                 url = Constants.CategoryStories(category.CategoryName.ToLower());
             if(CrossConnectivity.IsSupported)
             {
-                if(!CrossConnectivity.Current.IsConnected)
+                if(Xamarin.Essentials.Connectivity.NetworkAccess != Xamarin.Essentials.NetworkAccess.Internet)
                 {
                     Toast.Show("No Internet Connection");
-                    SetValue(ref _loading, false);
-                    OnPropertyChanged(nameof(Loading));
+                    Loading = false;
                     return false;
                 }
             }
@@ -88,8 +95,7 @@ namespace NewsApp.ViewModel
                         if (result.Status == StatusCode.error)
                         {
                             Toast.Show("Cannot retrieve news feed at the moment");
-                            SetValue(ref _loading, false);
-                            OnPropertyChanged(nameof(Loading));
+                            Loading = false;
                             return false;
                         }
                         news = result.Articles;
@@ -110,8 +116,7 @@ namespace NewsApp.ViewModel
             }
             foreach (var article in news)
                 _articles.Add(article);
-            SetValue(ref _loading, false);
-            OnPropertyChanged(nameof(Loading));
+            Loading = false;
             return true;
         }
 
@@ -132,8 +137,7 @@ namespace NewsApp.ViewModel
             var gotNews = await GetNews();
             if(gotNews)
                 _articles.Clear();
-            SetValue(ref _refreshed, true);
-            OnPropertyChanged(nameof(Refreshed));
+            Refreshed = true;
         }
 
         private async Task ReadArticle(Article article)

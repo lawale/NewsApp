@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsApp.Converters"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffimageloading="clr-namespace:NewsApp.Extensions"
              BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
              x:Class="NewsApp.View.ArticlesPage">
@@ -19,7 +19,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" HasShadow="True">
+                        <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
                             <Grid x:Name="Item" RowSpacing="10" BackgroundColor="Transparent" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="250"/>
@@ -28,7 +28,11 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <ffimageloading:CachedImage Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"   Grid.Row="0"/>
+                                <ffimageloading:ExtendedImage ErrorPlaceholder="{Binding ErrorImage}" RetryCount="3" RetryDelay="3000" Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"  Grid.Row="0">
+                                    <ffimageloading:ExtendedImage.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
+                                    </ffimageloading:ExtendedImage.GestureRecognizers>
+                                </ffimageloading:ExtendedImage>
                                 <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
                                 <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
                                 <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>

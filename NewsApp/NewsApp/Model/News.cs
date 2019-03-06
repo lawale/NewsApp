@@ -19,12 +19,23 @@ namespace NewsApp.Model
 
     public class Article
     {
+        private static int count = 0;
         public Source Source { get; set; }
         public string Author { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
         public string UrlToImage { get; set; }
+        public string ErrorImage { get; }
+        public string PlaceHolder { get; }
         public DateTime PublishedAt { get; set; }
+
+        public Article()
+        {
+            if (count % 2 == 0)
+                ErrorImage = "Error_Image_One";
+            else
+                ErrorImage = "Error_Image_Two";
+        }
     }
 }

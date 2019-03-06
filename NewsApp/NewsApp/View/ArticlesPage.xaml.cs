@@ -1,4 +1,5 @@
-﻿using NewsApp.ViewModel;
+﻿using NewsApp.Extensions;
+using NewsApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,14 @@ namespace NewsApp.View
             base.OnAppearing();
         }
 
-        private NewsViewModel ViewModel
+        private NewsViewModel ViewModel => BindingContext as NewsViewModel;
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            get => BindingContext as NewsViewModel;
-        } 
+            var image = sender as ExtendedImage;
+            if (!image.HasDownloaded && image.DowloadFailed)
+                image.ReloadImage();
+            
+        }
     }
 }
