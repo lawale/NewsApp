@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsApp.Android", "NewsApp\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsApp.iOS", "NewsApp\NewsApp.iOS\NewsApp.iOS.csproj", "{E2E8153A-7709-48E8-A979-90104AEE0092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsApp", "NewsApp\NewsApp\NewsApp.csproj", "{DEA54A2B-01B0-4175-906D-C970EA63CAF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsApp", "NewsApp\NewsApp\NewsApp.csproj", "{DEA54A2B-01B0-4175-906D-C970EA63CAF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{85BF93CE-0E06-462D-8D14-6B186D70E0B6}"
+	ProjectSection(SolutionItems) = preProject
+		ToDos.txt = ToDos.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
