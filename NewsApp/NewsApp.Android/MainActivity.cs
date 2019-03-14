@@ -9,10 +9,12 @@ using Android.OS;
 using Plugin.CurrentActivity;
 using Xamarin.Forms;
 using Android.Content;
+using FFImageLoading.Forms.Platform;
+using DLToolkit.Forms.Controls;
 
 namespace NewsApp.Droid
 {
-    [Activity(Label = "Nigeria News Feed", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "News Feed", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -25,6 +27,8 @@ namespace NewsApp.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
+            DLToolkit.Forms.Controls.FlowListView.Init();
+            CachedImageRenderer.Init(true);
             LoadApplication(new App());
         }
 

@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsApp.Converters"
+             xmlns:behavior="clr-namespace:NewsApp.Behaviors"
+             xmlns:flow="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:ffimageloading="clr-namespace:NewsApp.Extensions"
              BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
@@ -13,9 +15,45 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         
-        <ListView x:Name="list" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
+        <!--<flow:FlowListView x:Name="list" RefreshControlColor="DodgerBlue" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" VerticalOptions="FillAndExpand"
                   ItemsSource="{Binding Articles}" RefreshCommand="{Binding RefreshArticles}" IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding Refreshed}" HasUnevenRows="True" RowHeight="400" SelectionMode="None">
+                  IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" RowHeight="400" SelectionMode="None">
+            <flow:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
+                        <Grid x:Name="Item" RowSpacing="10" BackgroundColor="Transparent" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="250"/>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <ffimageloading:ExtendedImage ErrorPlaceholder="{Binding ErrorImage}" Margin="0" RetryCount="3" RetryDelay="3000" Source="{Binding UrlToImage}" WidthRequest="200" DownsampleToViewSize="True" DownsampleHeight="200" Aspect="Fill"  Grid.Row="0">
+                                <ffimageloading:ExtendedImage.Behaviors>
+                                    <behavior:ImageBehavior />
+                                </ffimageloading:ExtendedImage.Behaviors>
+                                <ffimageloading:ExtendedImage.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
+                                </ffimageloading:ExtendedImage.GestureRecognizers>
+                            </ffimageloading:ExtendedImage>
+
+                            <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+                            <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
+                            <Button BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}" TextColor="White"
+                                        Text="Read Article" BorderRadius="13" BackgroundColor="#1A86F1"
+                                        CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
+                                        Command="{Binding ReadArticleCommand}" HorizontalOptions="Center" Grid.Row="4" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </flow:FlowListView.FlowColumnTemplate>
+        </flow:FlowListView>-->
+
+        <ListView x:Name="list" RefreshControlColor="DodgerBlue" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" VerticalOptions="FillAndExpand"
+                  ItemsSource="{Binding Articles}" RefreshCommand="{Binding RefreshArticles}" IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" RowHeight="400" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -28,15 +66,19 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
-                                <ffimageloading:ExtendedImage ErrorPlaceholder="{Binding ErrorImage}" RetryCount="3" RetryDelay="3000" Source="{Binding UrlToImage}" WidthRequest="200" Aspect="AspectFill"  Grid.Row="0">
+                                <ffimageloading:ExtendedImage ErrorPlaceholder="{Binding ErrorImage}" Margin="0" RetryCount="3" RetryDelay="3000" Source="{Binding UrlToImage}" WidthRequest="200" DownsampleToViewSize="True" DownsampleHeight="200" Aspect="Fill"  Grid.Row="0">
+                                    <ffimageloading:ExtendedImage.Behaviors>
+                                        <behavior:ImageBehavior />
+                                    </ffimageloading:ExtendedImage.Behaviors>
                                     <ffimageloading:ExtendedImage.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
                                     </ffimageloading:ExtendedImage.GestureRecognizers>
                                 </ffimageloading:ExtendedImage>
+
                                 <Label Text="{Binding Title}" TextColor="Black" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
                                 <Label Text="{Binding Path=Source.Name, StringFormat='Source: {0}'}" Grid.Row="2" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
                                 <Label Text="{Binding PublishedAt, Converter={StaticResource DateConvert}, Mode=OneWay}" Grid.Row="3" TextColor="Black" FontSize="20" HorizontalOptions="Center"/>
-                                <Button BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                <Button BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}" TextColor="White"
                                         Text="Read Article" BorderRadius="13" BackgroundColor="#1A86F1"
                                         CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
                                         Command="{Binding ReadArticleCommand}" HorizontalOptions="Center" Grid.Row="4" />
@@ -46,10 +88,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.5,1,1" AbsoluteLayout.LayoutFlags="All">
-            <ActivityIndicator Color="#333630" IsEnabled="True" IsRunning="{Binding Loading}" VerticalOptions="Center" HorizontalOptions="Center" />
-        </StackLayout>
-
     </AbsoluteLayout>
 </ContentPage>

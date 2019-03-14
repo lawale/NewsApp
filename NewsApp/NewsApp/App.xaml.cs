@@ -16,16 +16,18 @@ namespace NewsApp
 	{
         private HomePage HomePage;
         private NavigationPage NavigationPage;
-        private readonly IServices services;
+        private readonly IServices services = DependencyService.Get<IServices>();
         private MenuPage MenuPage;
 		public App ()
 		{
 			InitializeComponent();
+            DLToolkit.Forms.Controls.FlowListView.Init();
             HomePage = new HomePage();
-            services = new Service(ref HomePage, ref NavigationPage);
-            MenuPage = new MenuPage(new MenuViewModel(services), services) { Title = "Categories" };
-            //NavigationPage = new NavigationPage(new View1(services));
-            NavigationPage = new NavigationPage(new ArticlesPage { BindingContext = new NewsViewModel(new NewsCategory { CategoryName = topstories }, services) });
+            MenuPage = new MenuPage{ Title = "Categories", BindingContext = new MenuViewModel() };
+            var cat = new NewsCategory { CategoryName = topstories };
+            var vm = new NewsViewModel(cat);
+            var page = new ArticlesPage{ BindingContext = vm };
+            NavigationPage = new NavigationPage(page);
             HomePage.Master = MenuPage;
             HomePage.Detail = NavigationPage;
             MainPage = HomePage;

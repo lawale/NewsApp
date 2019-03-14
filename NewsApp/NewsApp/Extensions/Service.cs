@@ -7,49 +7,22 @@ using Xamarin.Forms;
 using NewsApp.ViewModel;
 using System.Collections.ObjectModel;
 
+[assembly: Dependency(typeof(NewsApp.Extensions.Service))]
 namespace NewsApp.Extensions
 {
     public class Service : IServices
     {
-        private HomePage Home;
-        //private NavigationPage NavigationPage;
-        public Service(ref HomePage home, ref NavigationPage navigationPage)
-        {
-            Home = home;
-            //NavigationPage = navigationPage;
-            
-        }
-        public async Task<Page> NavigationPopAsync()
-        {
-            return await MainPage.Detail.Navigation.PopAsync();
-        }
 
-        public async Task NavigationPushAsync(Page page)
-        {
-            await MainPage.Detail.Navigation.PushAsync(page);
-        }
+        public async Task<Page> NavigationPopAsync() => await Home.Detail.Navigation.PopAsync();
 
-        private MasterDetailPage MainPage
-        {
-            get
-            {
-                return Application.Current.MainPage as MasterDetailPage; 
-            }
-        }
+        public async Task NavigationPushAsync(Page page) => await Home.Detail.Navigation.PushAsync(page);
 
-        public void SetDetailPage(Page page)
-        {
-            Home.Detail = new NavigationPage(page);
-        }
+        private MasterDetailPage Home => Application.Current.MainPage as MasterDetailPage;
 
-        public void SetIsPresented(bool value)
-        {
-            Home.IsPresented = value;
-        }
+        public void SetDetailPage(Page page) => Home.Detail = new NavigationPage(page);
 
-        public async Task NavigationPopToRoot()
-        {
-            await MainPage.Detail.Navigation.PopToRootAsync();
-        }
+        public void SetIsPresented(bool value) => Home.IsPresented = value;
+
+        public async Task NavigationPopToRoot() => await Home.Detail.Navigation.PopToRootAsync();
     }
 }

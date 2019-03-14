@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-using Plugin.Toasts;
+using Xamarin.Toast;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
@@ -26,8 +26,6 @@ namespace NewsApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            DependencyService.Register<ToastNotification>();
-            ToastNotification.Init();
             LoadApplication(new App());
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))

@@ -13,12 +13,10 @@ namespace NewsApp.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuPage : ContentPage
 	{
-        IServices services;
-		public MenuPage (MenuViewModel viewModel, IServices service)
+        readonly IServices services = DependencyService.Get<IServices>();
+		public MenuPage ()
 		{
-            services = service;
 			InitializeComponent ();
-            BindingContext = viewModel;
 		}
 
         protected override void OnAppearing()

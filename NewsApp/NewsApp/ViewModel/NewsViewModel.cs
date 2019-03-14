@@ -3,7 +3,6 @@ using NewsApp.Helpers;
 using NewsApp.Model;
 using NewsApp.View;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,52 +18,55 @@ namespace NewsApp.ViewModel
 {
     public class NewsViewModel : BaseViewModel
     {
-        public readonly NewsCategory category;
-        private readonly IServices services;
-        private ObservableCollection<Article> _articles;
-        private bool Loaded { get; set; }
-        private bool Refreshed
-        {
-            get => _refreshed;
-            set => SetValue(ref _refreshed, value);
-        }
-        //private Article _selectedArticle;
-        private bool _refreshed;
+        #region backingfields
+        private readonly NewsCategory category;
+        private readonly IServices services = DependencyService.Get<IServices>();
+        private ObservableCollection<Article> articles;
+        private bool isRefreshing;
         private IToast Toast = DependencyService.Get<IToast>();
-        private bool _loading;
-        public ICommand LoadArticles { get; private set; }
-        public ICommand SelectArticle { get; private set; }
-        public ICommand RefreshArticles { get; private set; }
-        public ICommand ReadArticleCommand { get; private set; }
+        private bool hasLoaded;
+        #endregion
+
+        #region properties
+        public ObservableCollection<Article> Articles
+        {
+            get => articles;
+            private set => SetValue(ref articles, value);
+        }
+
+        public bool IsRefreshing
+        {
+            get => isRefreshing;
+            set => SetValue(ref isRefreshing, value);
+        }
+
+        public bool HasLoaded
+        {
+            get => hasLoaded;
+            set => SetValue(ref hasLoaded, value);
+        }
+
         public string Title => category.CategoryName.ToUpper();
 
-        public NewsViewModel(NewsCategory category, IServices service)
+        #endregion
+
+        #region commands
+        public ICommand SelectArticle { get; }
+        public ICommand RefreshArticles { get; }
+        public ICommand ReadArticleCommand { get; }
+        #endregion
+
+        #region contructor
+        public NewsViewModel(NewsCategory category)
         {
             this.category = category;
-            _loading = true;
-            services = service;
-            _articles = new ObservableCollection<Article>();
-            LoadArticles = new Command(async () => await GetNews());
-            //SelectArticle = new Command(async () => await LoadArticle());
+            articles = new ObservableCollection<Article>();
             RefreshArticles = new Command(async () => await Refresh());
             ReadArticleCommand = new Command<Article>(async vm => await ReadArticle(vm));
         }
-
+        #endregion
         
-        //public Article SelectedArticle
-        //{
-        //    get => _selectedArticle;
-        //    set
-        //    {
-        //        _selectedArticle = value;
-        //    }
-        //}
-        public bool Loading
-        {
-            get => _loading;
-            set => SetValue(ref _loading, value);
-        }
-        public ObservableCollection<Article> Articles { get => _articles; }
+        #region private methods and method groups
 
         private async Task<bool> GetNews()
         {
@@ -74,15 +76,13 @@ namespace NewsApp.ViewModel
                 url = Constants.TopStories;
             else
                 url = Constants.CategoryStories(category.CategoryName.ToLower());
-            if(CrossConnectivity.IsSupported)
+            if (Xamarin.Essentials.Connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.None)
             {
-                if(Xamarin.Essentials.Connectivity.NetworkAccess != Xamarin.Essentials.NetworkAccess.Internet)
-                {
-                    Toast.Show("No Internet Connection");
-                    Loading = false;
-                    return false;
-                }
+                Toast.Show("Check your Internet Connection!");
+                return false;
             }
+
+
             using (HttpClient client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(20);
@@ -95,54 +95,54 @@ namespace NewsApp.ViewModel
                         if (result.Status == StatusCode.error)
                         {
                             Toast.Show("Cannot retrieve news feed at the moment");
-                            Loading = false;
                             return false;
                         }
                         news = result.Articles;
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     //Console.WriteLine(e.Source);
                     //Console.WriteLine(e.Message);
+                    Toast.Show("An error occured!");
                     return false;
                 }
             }
+
 
             var empty = Articles.Where(x => x.UrlToImage == null);
             foreach (var image in empty)
             {
                 image.UrlToImage = null;
             }
+            Articles.Clear();
             foreach (var article in news)
-                _articles.Add(article);
-            Loading = false;
+                Articles.Add(article);
             return true;
         }
-
-        #region Implementation of Article Selection
-        //private async Task LoadArticle()
-        //{
-        //    if (_selectedArticle == null)
-        //        return;
-        //    var model = new WebViewModel(_selectedArticle.Url, services);
-        //    await services.NavigationPushAsync(new WebPage(model));
-        //    SetValue(ref _selectedArticle, null);
-        //    OnPropertyChanged(nameof(SelectedArticle));
-        //}
-        #endregion
-
+        
+        /// <summary>
+        /// Gets the latest news item from the endpoint
+        /// </summary>
+        /// <returns>Returne a task</returns>
         private async Task Refresh()
         {
-            var gotNews = await GetNews();
-            if(gotNews)
-                _articles.Clear();
-            Refreshed = true;
+            HasLoaded = false;
+            IsRefreshing = true;
+            await GetNews();
+            IsRefreshing = false;
+            HasLoaded = true;
         }
 
+        /// <summary>
+        /// Action method for executing the read article button command
+        /// </summary>
+        /// <param name="article">the article item to be opened</param>
+        /// <returns>return a task</returns>
         private async Task ReadArticle(Article article)
         {
             await Xamarin.Essentials.Browser.OpenAsync(article.Url, Xamarin.Essentials.BrowserLaunchMode.SystemPreferred);
         }
+        #endregion
     }
 }

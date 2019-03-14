@@ -14,8 +14,8 @@ namespace NewsApp.ViewModel
 {
     public class MenuViewModel : BaseViewModel
     {
-
-        private readonly IServices services;
+        
+        private readonly IServices services = DependencyService.Get<IServices>();
         private NewsCategory selectedNewsCategory;
         private List<NewsCategory> _categories;
         private List<NewsViewModel> _newsCategories;
@@ -23,25 +23,18 @@ namespace NewsApp.ViewModel
         public List<NewsCategory> Categories
         {
             get => _categories;
-            set
-            {
-                SetValue(ref _categories, value);
-            }
+            set => SetValue(ref _categories, value);
         }
 
         public NewsCategory SelectedNewsCategory
         {
             get => selectedNewsCategory;
-            set
-            {
-                SetValue(ref selectedNewsCategory, value);
-            }
+            set => SetValue(ref selectedNewsCategory, value);
         }
         
-        public MenuViewModel(IServices service)
+        public MenuViewModel()
         {
             _newsCategories = new List<NewsViewModel>();
-            services = service;
             _categories = new List<NewsCategory>
             {
                 new NewsCategory { CategoryName = topstories.ToUpper(), CategoryImage = null},
@@ -55,7 +48,7 @@ namespace NewsApp.ViewModel
 
             foreach (var category in _categories)
             {
-                _newsCategories.Add(new NewsViewModel(category, services));
+                _newsCategories.Add(new NewsViewModel(category));
             }
             
             LoadCategory = new Command(LoadPage);
@@ -65,7 +58,7 @@ namespace NewsApp.ViewModel
         {
             if (selectedNewsCategory == null)
                 return;
-            var PageViewModel = _newsCategories.Find(x => x.category == selectedNewsCategory);
+            var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
             services.SetIsPresented(false);
             services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
             SelectedNewsCategory = null;

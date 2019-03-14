@@ -22,8 +22,8 @@ namespace NewsApp.View
 
         protected override void OnAppearing()
         {
-            if(ViewModel.Loading)
-                ViewModel.LoadArticles.Execute(null);
+            if (!ViewModel.IsRefreshing && !ViewModel.HasLoaded)
+                list.RefreshCommand.Execute(null);
             base.OnAppearing();
         }
 
