@@ -1,1 +1,0 @@
-1) Add Xamarin.FOrms.Visual.Material to Xamarin.iOS project
