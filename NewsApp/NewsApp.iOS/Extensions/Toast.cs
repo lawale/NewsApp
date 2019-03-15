@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Foundation;
-using NewsApp.Extensions;
+using NewsApp.Core.Extensions;
 using UIKit;
 using Xamarin.Toast;
 using Xamarin.Forms;

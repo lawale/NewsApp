@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using FFImageLoading.Forms;
-using NewsApp.Extensions;
+using NewsApp.View;
 using Xamarin.Forms;
 
 namespace NewsApp.Behaviors

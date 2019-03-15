@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NewsApp.Extensions
+namespace NewsApp.View
 {
     class ExtendedImage : FFImageLoading.Forms.CachedImage
     {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using NewsApp.Model;
-using NewsApp.ViewModel;
+using NewsApp.Core.ViewModel;
 
-namespace NewsApp.Extensions
+namespace NewsApp.Core.Extensions
 {
     public interface IServices
     {

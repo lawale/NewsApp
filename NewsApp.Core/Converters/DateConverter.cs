@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace NewsApp.Converters
+namespace NewsApp.Core.Converters
 {
     public class DateConverter : IValueConverter
     {

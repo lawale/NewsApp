@@ -1,16 +1,15 @@
-﻿using NewsApp.Extensions;
-using NewsApp.Helpers;
-using NewsApp.Model;
-using NewsApp.View;
+﻿using NewsApp.Core.Extensions;
+using NewsApp.Core.Helpers;
+using NewsApp.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using static NewsApp.Helpers.Categories;
+using static NewsApp.Core.Helpers.Categories;
 
-namespace NewsApp.ViewModel
+namespace NewsApp.Core.ViewModel
 {
     public class MenuViewModel : BaseViewModel
     {
@@ -58,10 +57,10 @@ namespace NewsApp.ViewModel
         {
             if (selectedNewsCategory == null)
                 return;
-            var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
-            services.SetIsPresented(false);
-            services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
-            SelectedNewsCategory = null;
+            //var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
+            //services.SetIsPresented(false);
+            //services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
+            //SelectedNewsCategory = null;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewsApp.Model
+namespace NewsApp.Core.Model
 {
     public class NewsCategory
     {

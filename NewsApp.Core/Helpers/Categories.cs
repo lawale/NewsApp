@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewsApp.Helpers
+namespace NewsApp.Core.Helpers
 {
     public static class Categories
     {

@@ -1,10 +1,10 @@
-﻿using NewsApp.ViewModel;
+﻿using NewsApp.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NewsApp.Extensions;
+using NewsApp.Core.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

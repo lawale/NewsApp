@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewsApp.Extensions
+namespace NewsApp.Core.Extensions
 {
     public interface IToast
     {

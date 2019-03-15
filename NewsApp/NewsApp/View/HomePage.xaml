@@ -2,7 +2,7 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              MasterBehavior="Popover" 
-             Title="Nigeria News Feed" Icon="mipmap/ic_launcher.png"
+             Title="News Feed" Icon="mipmap/ic_launcher.png"
              BackgroundColor="White"
              x:Class="NewsApp.View.HomePage">
 </MasterDetailPage>

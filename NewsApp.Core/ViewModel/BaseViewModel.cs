@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace NewsApp.ViewModel
+namespace NewsApp.Core.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

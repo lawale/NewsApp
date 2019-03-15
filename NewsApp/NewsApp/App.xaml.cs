@@ -3,10 +3,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using NewsApp.View;
-using NewsApp.ViewModel;
-using NewsApp.Extensions;
-using static NewsApp.Helpers.Categories;
-using NewsApp.Model;
+using NewsApp.Core.ViewModel;
+using NewsApp.Core.Extensions;
+using static NewsApp.Core.Helpers.Categories;
+using NewsApp.Core.Model;
 using System.Collections.Generic;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]

@@ -1,14 +1,8 @@
-﻿using NewsApp.Model;
-using NewsApp.View;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
-using NewsApp.ViewModel;
-using System.Collections.ObjectModel;
 
-[assembly: Dependency(typeof(NewsApp.Extensions.Service))]
-namespace NewsApp.Extensions
+[assembly: Dependency(typeof(NewsApp.Core.Extensions.Service))]
+namespace NewsApp.Core.Extensions
 {
     public class Service : IServices
     {

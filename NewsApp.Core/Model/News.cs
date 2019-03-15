@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace NewsApp.Model
+namespace NewsApp.Core.Model
 {
     public class News
     {
