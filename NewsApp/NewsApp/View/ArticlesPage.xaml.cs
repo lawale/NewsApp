@@ -29,12 +29,12 @@ namespace NewsApp.View
 
         private NewsViewModel ViewModel => BindingContext as NewsViewModel;
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            var image = sender as ExtendedImage;
-            if (!image.HasDownloaded && image.DowloadFailed)
-                image.ReloadImage();
+        //private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        //{
+        //    var image = sender as ExtendedImage;
+        //    if (!image.HasDownloaded && image.DowloadFailed)
+        //        image.ReloadImage();
             
-        }
+        //}
     }
 }

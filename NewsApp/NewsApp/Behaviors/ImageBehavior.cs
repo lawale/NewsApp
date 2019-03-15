@@ -19,7 +19,8 @@ namespace NewsApp.Behaviors
         private void DownloadError(object sender, CachedImageEvents.ErrorEventArgs e)
         {
             var image = sender as ExtendedImage;
-            image.DowloadFailed = true;
+            
+            image.DownloadFailed = true;
             image.HasDownloaded = false;
         }
 
@@ -27,7 +28,7 @@ namespace NewsApp.Behaviors
         {
             var image = sender as ExtendedImage;
             image.HasDownloaded = true;
-            image.DowloadFailed = false;
+            image.DownloadFailed = false;
         }
 
         protected override void OnDetachingFrom(ExtendedImage bindable)

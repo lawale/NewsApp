@@ -59,7 +59,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
-                            <Grid x:Name="Item" RowSpacing="10"  Margin="10" BackgroundColor="Black" >
+                            <Grid x:Name="Item" RowSpacing="10"  Margin="0" BackgroundColor="Black" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="250"/>
                                 <RowDefinition Height="*" />
@@ -71,9 +71,9 @@
                                 <ffimageloading:ExtendedImage.Behaviors>
                                     <behavior:ImageBehavior />
                                 </ffimageloading:ExtendedImage.Behaviors>
-                                <ffimageloading:ExtendedImage.GestureRecognizers>
+                                <!--<ffimageloading:ExtendedImage.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
-                                </ffimageloading:ExtendedImage.GestureRecognizers>
+                                </ffimageloading:ExtendedImage.GestureRecognizers>-->
                             </ffimageloading:ExtendedImage>
 
                             <Label Text="{Binding Title}" TextColor="White" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
