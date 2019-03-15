@@ -2,9 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsApp.Converters"
-             xmlns:behavior="clr-namespace:NewsApp.Behaviors"
-             xmlns:flow="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
-             xmlns:ffimageloading="clr-namespace:NewsApp.Extensions"
+             xmlns:view="clr-namespace:NewsApp.View"
              Visual="Material"
              BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
@@ -58,7 +56,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
+                        <!--<Frame BackgroundColor="White" Padding="0" Margin="10" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
                             <Grid x:Name="Item" RowSpacing="10"  Margin="0" BackgroundColor="Black" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="250"/>
@@ -71,9 +69,9 @@
                                 <ffimageloading:ExtendedImage.Behaviors>
                                     <behavior:ImageBehavior />
                                 </ffimageloading:ExtendedImage.Behaviors>
-                                <!--<ffimageloading:ExtendedImage.GestureRecognizers>
+                                --><!--<ffimageloading:ExtendedImage.GestureRecognizers>
                                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
-                                </ffimageloading:ExtendedImage.GestureRecognizers>-->
+                                </ffimageloading:ExtendedImage.GestureRecognizers>--><!--
                             </ffimageloading:ExtendedImage>
 
                             <Label Text="{Binding Title}" TextColor="White" Grid.Row="1" FontSize="25" HorizontalTextAlignment="Center" />
@@ -84,8 +82,8 @@
                                         CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"
                                         Command="{Binding ReadArticleCommand}" HorizontalOptions="Center" Grid.Row="4" />
                         </Grid>
-                        </Frame>
-                        
+                        </Frame>-->
+                        <view:ArticleView />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -23,13 +23,21 @@ namespace NewsApp.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+            PackageInit(bundle);
+            
+            LoadApplication(new App());
+        }
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+        /// <summary>
+        /// Init Packages in this method
+        /// </summary>
+        void PackageInit(Bundle bundle)
+        {
+            Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
-            DLToolkit.Forms.Controls.FlowListView.Init();
+            FlowListView.Init();
             CachedImageRenderer.Init(true);
-            LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

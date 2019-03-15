@@ -15,23 +15,36 @@ namespace NewsApp
 	public partial class App : Application
 	{
         private HomePage HomePage;
-        private NavigationPage NavigationPage;
         private readonly IServices services = DependencyService.Get<IServices>();
-        private MenuPage MenuPage;
 		public App ()
 		{
 			InitializeComponent();
-            DLToolkit.Forms.Controls.FlowListView.Init();
-            HomePage = new HomePage();
-            MenuPage = new MenuPage{ Title = "Categories", BindingContext = new MenuViewModel() };
-            var cat = new NewsCategory { CategoryName = topstories };
-            var vm = new NewsViewModel(cat);
-            var page = new ArticlesPage{ BindingContext = vm };
-            NavigationPage = new NavigationPage(page);
-            HomePage.Master = MenuPage;
-            HomePage.Detail = NavigationPage;
+            PackageInit();
+            SetupPages();
             MainPage = HomePage;
 		}
+
+        /// <summary>
+        /// Init start-up pages here
+        /// </summary>
+        void SetupPages()
+        {
+            var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
+            var page = new ArticlesPage { BindingContext = vm };
+            HomePage = new HomePage
+            {
+                Master = new MenuPage(),
+                Detail = new NavigationPage(page)
+            };
+        }
+
+        /// <summary>
+        /// Init 3rd-Party libraries here
+        /// </summary>
+        void PackageInit()
+        {
+            DLToolkit.Forms.Controls.FlowListView.Init();
+        }
 
 		protected override void OnStart ()
 		{
