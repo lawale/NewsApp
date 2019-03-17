@@ -6,9 +6,9 @@ namespace NewsApp.Core.Helpers
 {
     public static class Constants
     {
-        private const string HeadLines = "https://newsapi.org/v2/top-headlines?country=ng&apiKey={0}";
-        private const string Others = "https://newsapi.org/v2/top-headlines?country=ng&category={0}&apiKey={1}";
-        private const string APiKey = "9b11455b30834425a6c30b0770afd7fd";
+        private const string HeadLines = Secrets.HeadLines;
+        private const string Others = Secrets.Others;
+        private const string APiKey = Secrets.APiKey;
         public static string TopStories
         {
             get
