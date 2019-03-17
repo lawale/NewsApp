@@ -13,6 +13,7 @@ namespace NewsApp.Core.Factories
     public class ViewFactory : IViewFactory
     {
         readonly IDictionary<Type, Type> map = new Dictionary<Type, Type>();
+        readonly object sync = new object();
 
         private TViewModel CreateViewModel<TViewModel>(object parameter = null) where TViewModel : class, IViewModel
         {
@@ -35,9 +36,17 @@ namespace NewsApp.Core.Factories
             }
         }
 
-        public void Register<TViewModel, TView>() 
+        public void Register<TViewModel, TView>()
             where TViewModel : class, IViewModel where TView : Page
-            => map[typeof(TViewModel)] = typeof(TView);
+        {
+            lock(sync)
+            {
+                if (map.ContainsKey(typeof(TViewModel)))
+                    throw new Exception($"{typeof(TViewModel)} has already been registered with {map[typeof(TView)]}");
+                map[typeof(TViewModel)] = typeof(TView);
+            }
+
+        }
 
         public Page Resolve<TViewModel>(Action<TViewModel> setStateAction, object parameter = null)
             where TViewModel : class, IViewModel
@@ -46,7 +55,7 @@ namespace NewsApp.Core.Factories
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction, object parameter = null) where TViewModel : class, IViewModel
         {
             viewModel = CreateViewModel<TViewModel>(parameter);
-            
+
             var viewType = map[typeof(TViewModel)];
             var view = Activator.CreateInstance(viewType) as Page;
             if (setStateAction != null)
