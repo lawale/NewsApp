@@ -44,9 +44,6 @@ namespace NewsApp.Core.ViewModel
             get => hasLoaded;
             set => SetValue(ref hasLoaded, value);
         }
-
-        public string Title => category.CategoryName.ToUpper();
-
         #endregion
 
         #region commands
@@ -59,12 +56,13 @@ namespace NewsApp.Core.ViewModel
         public NewsViewModel(NewsCategory category)
         {
             this.category = category;
+            Title = category.CategoryName.ToUpper();
             articles = new ObservableCollection<Article>();
             RefreshArticles = new Command(async () => await Refresh());
             ReadArticleCommand = new Command<Article>(async vm => await ReadArticle(vm));
         }
         #endregion
-        
+       
         #region private methods and method groups
 
         private async Task<bool> GetNews()
