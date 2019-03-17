@@ -21,7 +21,17 @@ namespace NewsApp.Core.Services
             set => DependencyService.Get<IServices>().CurrentPage = value;
         }
 
-        public void SetDetail(Page page)
+        public void SetMainPage(Page page)
+        {
+            if (page is MasterDetailPage masterDetailPage)
+            {
+                SetMasterDetail(masterDetailPage);
+            }
+            else
+                Application.Current.MainPage = page;
+        }
+
+        public void ChangeDetail(Page page)
         {
             if(Application.Current.MainPage is MasterDetailPage masterDetailPage)
             {

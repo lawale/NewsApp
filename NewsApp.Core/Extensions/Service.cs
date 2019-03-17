@@ -20,8 +20,7 @@ namespace NewsApp.Core.Extensions
 
         public void SetDetailPage(Page page)
         {
-            var stack = Navigation.NavigationStack;
-            Navigation.SetDetail(page);
+            Navigation.ChangeDetail(page);
         }
 
         public void SetIsPresented(bool value) => Home.IsPresented = value;

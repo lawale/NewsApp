@@ -9,7 +9,9 @@ namespace NewsApp.Core.Services
 {
     public interface INavigationImpl : INavigation
     {
-        void SetDetail(Page page);
+        void SetMainPage(Page page)
+
+        void ChangeDetail(Page page);
 
         Page CurrentDetail { get; }
 
