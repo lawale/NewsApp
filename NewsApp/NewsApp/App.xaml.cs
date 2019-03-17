@@ -13,25 +13,10 @@ namespace NewsApp
 {
 	public partial class App : Application
 	{
-        private HomePage HomePage;
-        private readonly IServices services = DependencyService.Get<IServices>();
 		public App ()
 		{
 			InitializeComponent();
             PackageInit();
-            SetupPages();
-            MainPage = HomePage;
-            try
-            {
-                var inavigation = DependencyService.Get<INavigation>();
-                
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-
-            }
-
 
         }
 
@@ -41,22 +26,22 @@ namespace NewsApp
         /// <summary>
         /// Init start-up pages here
         /// </summary>
-        void SetupPages()
-        {
+        //void SetupPages()
+        //{
 
             
             
-            var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
-            var page = new ArticlesPage { BindingContext = vm };
-            services.CurrentPage = page;
-            var nav = new NavigationPage();
-            nav.PushAsync(page);
-            HomePage = new HomePage
-            {
-                Master = new MenuPage(),
-                Detail = nav
-            };
-        }
+        //    var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
+        //    var page = new ArticlesPage { BindingContext = vm };
+        //    services.CurrentPage = page;
+        //    var nav = new NavigationPage();
+        //    nav.PushAsync(page);
+        //    HomePage = new HomePage
+        //    {
+        //        Master = new MenuPage(),
+        //        Detail = nav
+        //    };
+        //}
         
         /// <summary>
         /// Init 3rd-Party libraries here
