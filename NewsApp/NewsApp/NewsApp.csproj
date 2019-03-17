@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NewsApp.Core\NewsApp.Core.csproj" />
+    <ProjectReference Include="..\NewsApp.Core\NewsApp.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -172,8 +172,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\NewsApp.Core\NewsApp.Core.csproj">
-      <Project>{B5AF9498-DBC0-4EA1-B427-382FB48E38D3}</Project>
+    <ProjectReference Include="..\NewsApp.Core\NewsApp.Core.csproj">
+      <Project>{9A65C821-2D61-42FD-A416-150256AAB2A9}</Project>
       <Name>NewsApp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\NewsApp\NewsApp.csproj">
