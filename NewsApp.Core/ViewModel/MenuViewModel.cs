@@ -57,10 +57,10 @@ namespace NewsApp.Core.ViewModel
         {
             if (selectedNewsCategory == null)
                 return;
-            //var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
-            //services.SetIsPresented(false);
-            //services.SetDetailPage(new ArticlesPage { BindingContext = PageViewModel });
-            //SelectedNewsCategory = null;
+            var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
+            services.SetIsPresented(false);
+            services.SetDetailPage(new Page { BindingContext = PageViewModel });
+            SelectedNewsCategory = null;
         }
     }
 }

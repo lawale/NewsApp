@@ -9,6 +9,7 @@ namespace NewsApp.Core.Extensions
 {
     public interface IServices
     {
+        Page CurrentPage { get; set; }
         Task NavigationPopToRoot();
         Task<Page> NavigationPopAsync();
         Task NavigationPushAsync(Page page);

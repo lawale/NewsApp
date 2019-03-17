@@ -7,20 +7,20 @@ using NewsApp.Core.Services;
 using Xamarin.Forms;
 using NewsApp.Core.Factories;
 
-[assembly: Xamarin.Forms.Dependency(typeof(Navigator))]
+[assembly: Dependency(typeof(Navigator))]
 namespace NewsApp.Core.Services
 {
     public class Navigator : INavigator
     {
-        readonly Lazy<INavigation> navigation;
+        readonly Lazy<INavigationImpl> navigation;
         readonly IViewFactory viewFactory;
 
-        INavigation Navigation => navigation.Value;
+        INavigationImpl Navigation => navigation.Value;
 
         public Navigator()
         {
             viewFactory = DependencyService.Get<IViewFactory>();
-            navigation = DependencyService.Resolve<Lazy<INavigation>>();
+            navigation = DependencyService.Resolve<Lazy<INavigationImpl>>();
         }
 
         public async Task<IViewModel> PopAsync()

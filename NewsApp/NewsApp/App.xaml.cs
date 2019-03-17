@@ -1,7 +1,6 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 using NewsApp.View;
 using NewsApp.Core.ViewModel;
 using NewsApp.Core.Extensions;
@@ -22,22 +21,43 @@ namespace NewsApp
             PackageInit();
             SetupPages();
             MainPage = HomePage;
-		}
+            try
+            {
+                var inavigation = DependencyService.Get<INavigation>();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+
+            }
+
+
+        }
+
+
+        
 
         /// <summary>
         /// Init start-up pages here
         /// </summary>
         void SetupPages()
         {
+
+            
+            
             var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
             var page = new ArticlesPage { BindingContext = vm };
+            services.CurrentPage = page;
+            var nav = new NavigationPage();
+            nav.PushAsync(page);
             HomePage = new HomePage
             {
                 Master = new MenuPage(),
-                Detail = new NavigationPage(page)
+                Detail = nav
             };
         }
-
+        
         /// <summary>
         /// Init 3rd-Party libraries here
         /// </summary>
@@ -62,3 +82,5 @@ namespace NewsApp
 		}
 	}
 }
+
+

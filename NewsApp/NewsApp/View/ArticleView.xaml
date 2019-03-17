@@ -2,9 +2,15 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:View="clr-namespace:NewsApp.View"
+             xmlns:converter="clr-namespace:NewsApp.Core.Converters;assembly=NewsApp.Core"
              xmlns:behavior="clr-namespace:NewsApp.Behaviors"
              Margin="10"
              x:Class="NewsApp.View.ArticleView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:DateConverter x:Key="DateConvert"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
   <ContentView.Content>
         <Frame BackgroundColor="White" Padding="0" OutlineColor="LightGray" IsClippedToBounds="True" CornerRadius="5" HasShadow="True">
             <Grid x:Name="Item" RowSpacing="10"  Margin="0" BackgroundColor="Black" >
