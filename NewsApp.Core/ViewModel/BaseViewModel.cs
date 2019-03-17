@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using NewsApp.Core.ViewModel;
 
-[assembly: Xamarin.Forms.Dependency(typeof(BaseViewModel))]
+
 namespace NewsApp.Core.ViewModel
 {
     public class BaseViewModel : IViewModel
@@ -28,7 +28,7 @@ namespace NewsApp.Core.ViewModel
             OnPropertyChanged(propertyName);
         }
 
-        void IViewModel.SetState<T>(Action<T> action)
+        public void SetState<T>(Action<T> action) where T : class, IViewModel
         {
             action(this as T);
         }
