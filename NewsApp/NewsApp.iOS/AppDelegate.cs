@@ -7,6 +7,7 @@ using Xamarin.Toast;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
+using XF.Material.iOS;
 
 namespace NewsApp.iOS
 {
@@ -26,6 +27,7 @@ namespace NewsApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Material.Init();
             LoadApplication(new App());
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))

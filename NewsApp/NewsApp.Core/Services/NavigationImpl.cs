@@ -62,8 +62,9 @@ namespace NewsApp.Core.Services
             }
             if(masterDetailPage.Detail.GetType() !=  typeof(NavigationPage))
             {
-                Type detail = masterDetailPage.Detail.GetType();
-                var newDetail = new NavigationPage(Activator.CreateInstance(detail) as Page);
+                //Type detail = masterDetailPage.Detail.GetType();
+                var detail = masterDetailPage.Detail;
+                var newDetail = new NavigationPage(detail);
                 masterDetailPage.Detail = newDetail;
             }
             var currDetail = masterDetailPage.Detail as NavigationPage;

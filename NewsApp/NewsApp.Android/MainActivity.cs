@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using Android.Content;
 using FFImageLoading.Forms.Platform;
 using DLToolkit.Forms.Controls;
+using XF.Material.Droid;
 
 namespace NewsApp.Droid
 {
@@ -34,6 +35,7 @@ namespace NewsApp.Droid
         void PackageInit(Bundle bundle)
         {
             Forms.Init(this, bundle);
+            Material.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
             FlowListView.Init();
