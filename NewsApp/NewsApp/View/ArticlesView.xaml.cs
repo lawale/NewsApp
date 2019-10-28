@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace NewsApp.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ArticlesPage : ContentPage
+	public partial class ArticlesView : ContentPage
 	{
-		public ArticlesPage ()
+		public ArticlesView ()
 		{
 			InitializeComponent ();
 		}
@@ -19,7 +19,7 @@ namespace NewsApp.View
             base.OnAppearing();
         }
 
-        private NewsViewModel ViewModel => BindingContext as NewsViewModel;
+        private ArticlesViewModel ViewModel => BindingContext as ArticlesViewModel;
 
         //private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         //{

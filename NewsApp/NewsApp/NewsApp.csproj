@@ -5,11 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
     <PackageReference Include="xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.3.0.908675" />
     <PackageReference Include="XF.Material" Version="1.5.4" />
   </ItemGroup>
 
@@ -18,7 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="View\ArticlesPage.xaml">
+    <Compile Update="View\ArticlesView.xaml.cs">
+      <DependentUpon>ArticlesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="View\ArticlesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\ArticleView.xaml">
@@ -27,7 +34,7 @@
     <EmbeddedResource Update="View\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\MenuPage.xaml">
+    <EmbeddedResource Update="View\MenuView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -1,8 +1,10 @@
 ﻿using NewsApp.Core.Extensions;
 using NewsApp.Core.Helpers;
 using NewsApp.Core.Model;
+using NewsApp.Core.Services;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,11 +15,9 @@ namespace NewsApp.Core.ViewModel
 {
     public class MenuViewModel : BaseViewModel
     {
-        
-        private readonly IServices services = DependencyService.Get<IServices>();
         private NewsCategory selectedNewsCategory;
         private List<NewsCategory> _categories;
-        private List<NewsViewModel> _newsCategories;
+        private List<ArticlesViewModel> _newsCategories;
         public ICommand LoadCategory { get; private set; }
         public List<NewsCategory> Categories
         {
@@ -33,7 +33,7 @@ namespace NewsApp.Core.ViewModel
         
         public MenuViewModel()
         {
-            _newsCategories = new List<NewsViewModel>();
+            _newsCategories = new List<ArticlesViewModel>();
             _categories = new List<NewsCategory>
             {
                 new NewsCategory { CategoryName = topstories.ToUpper(), CategoryImage = null},
@@ -47,7 +47,7 @@ namespace NewsApp.Core.ViewModel
 
             foreach (var category in _categories)
             {
-                _newsCategories.Add(new NewsViewModel(category));
+                _newsCategories.Add(new ArticlesViewModel(category));
             }
             
             LoadCategory = new Command(LoadPage);
@@ -58,8 +58,8 @@ namespace NewsApp.Core.ViewModel
             if (selectedNewsCategory == null)
                 return;
             var PageViewModel = _newsCategories.Find(x => x.Title == selectedNewsCategory.CategoryName);
-            services.SetIsPresented(false);
-            services.SetDetailPage(new Page { BindingContext = PageViewModel });
+            var service = Startup.ServiceProvider.GetService<INavigationService>();
+            service.ChangeDetail(PageViewModel);
             SelectedNewsCategory = null;
         }
     }

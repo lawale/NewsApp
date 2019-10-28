@@ -8,6 +8,7 @@ using static NewsApp.Core.Helpers.Categories;
 using NewsApp.Core.Model;
 using System.Collections.Generic;
 using XF.Material.Forms;
+using NewsApp.Core;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace NewsApp
@@ -29,19 +30,10 @@ namespace NewsApp
         /// </summary>
         void SetupPages()
         {
-            var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
-            var menu = new MenuViewModel();
-            var bootstrapper = new NewsAppBootsrap(null);
-            bootstrapper.StartAsMasterDetail(menu, vm);
-            //var page = new ArticlesPage { BindingContext = vm };
-            //services.CurrentPage = page;
-            //var nav = new NavigationPage();
-            //nav.PushAsync(page);
-            //HomePage = new HomePage
-            //{
-            //    Master = new MenuPage(),
-            //    Detail = nav
-            //};
+            var detail_vm = new ArticlesViewModel(new NewsCategory { CategoryName = topstories });
+            var master_vm = new MenuViewModel();
+            var bootstrapper = new NewsAppBootsrap();
+            bootstrapper.SetupMasterDetailApp(master_vm, detail_vm);
         }
 
         /// <summary>
@@ -49,8 +41,8 @@ namespace NewsApp
         /// </summary>
         void PackageInit()
         {
-            DLToolkit.Forms.Controls.FlowListView.Init();
             Material.Init(this);
+            Startup.Init();
         }
 
 		protected override void OnStart ()

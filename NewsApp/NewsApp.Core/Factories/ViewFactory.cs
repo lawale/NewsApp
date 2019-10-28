@@ -36,7 +36,7 @@ namespace NewsApp.Core.Factories
                 }
 
                 var viewModel = typeof(TViewModel);
-                var key = viewModel.Name + viewKey == null ? string.Empty : $"_{viewKey}";
+                var key = viewModel.Name + (viewKey == null ? string.Empty : $"_{viewKey}");
 
                 if (!viewModel.Name.EndsWith("ViewModel"))
                 {
@@ -74,7 +74,7 @@ namespace NewsApp.Core.Factories
                     throw new ArgumentException(message);
                 }
 
-                var key = view.Name + "Model" + viewKey == null ? string.Empty : $"_{viewKey}";
+                var key = view.Name + "Model" + (viewKey == null ? string.Empty : $"_{viewKey}");
 
                 if (viewDictionary.ContainsKey(key))
                 {
@@ -99,7 +99,7 @@ namespace NewsApp.Core.Factories
         public Page Resolve<TViewModel>(out TViewModel viewModel, Action<TViewModel> setStateAction = null, string viewKey = null, bool setBindingContext = true) where TViewModel : class, IViewModel
         {
             viewModel = Startup.ServiceProvider.GetService<TViewModel>();
-            var key = viewModel.GetType().Name + viewKey == null ? string.Empty : $"_{viewKey}";
+            var key = viewModel.GetType().Name + (viewKey == null ? string.Empty : $"_{viewKey}");
 
             if (!key.EndsWith("ViewModel"))
             {
@@ -110,7 +110,7 @@ namespace NewsApp.Core.Factories
 
             if (!viewDictionary.ContainsKey(key))
             {
-                var modelStringIndex = viewKey == null ? key.LastIndexOf("Model") : key.LastIndexOf($"Model_{viewKey}");
+                var modelStringIndex = (viewKey == null ? key.LastIndexOf("Model") : key.LastIndexOf($"Model_{viewKey}"));
                 var viewName = key.Remove(modelStringIndex);
                 var message = $"The ViewModel {key} is not registered with its supposed associated View {viewName}.";
                 logger.LogInformation(message);

@@ -11,18 +11,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 using static NewsApp.Core.Helpers.Categories;
 
 namespace NewsApp.Core.ViewModel
 {
-    public class NewsViewModel : BaseViewModel
+    public class ArticlesViewModel : BaseViewModel
     {
         #region backingfields
         private readonly NewsCategory category;
-        private readonly IServices services = DependencyService.Get<IServices>();
         private ObservableCollection<Article> articles;
         private bool isRefreshing;
-        private IToast Toast = DependencyService.Get<IToast>();
         private bool hasLoaded;
         #endregion
 
@@ -53,7 +52,7 @@ namespace NewsApp.Core.ViewModel
         #endregion
 
         #region contructor
-        public NewsViewModel(NewsCategory category)
+        public ArticlesViewModel(NewsCategory category)
         {
             this.category = category;
             Title = category.CategoryName.ToUpper();
@@ -75,7 +74,7 @@ namespace NewsApp.Core.ViewModel
                 url = Constants.CategoryStories(category.CategoryName.ToLower());
             if (Xamarin.Essentials.Connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.None)
             {
-                Toast.Show("Check your Internet Connection!");
+                await MaterialDialog.Instance.SnackbarAsync("Check your Internet Connection!");
                 return false;
             }
 
@@ -91,7 +90,7 @@ namespace NewsApp.Core.ViewModel
                         var result = JsonConvert.DeserializeObject<News>(json);
                         if (result.Status == StatusCode.error)
                         {
-                            Toast.Show("Cannot retrieve news feed at the moment");
+                            await MaterialDialog.Instance.SnackbarAsync("Cannot retrieve news feed at the moment");
                             return false;
                         }
                         news = result.Articles;
@@ -99,9 +98,7 @@ namespace NewsApp.Core.ViewModel
                 }
                 catch (Exception)
                 {
-                    //Console.WriteLine(e.Source);
-                    //Console.WriteLine(e.Message);
-                    Toast.Show("An error occured!");
+                    await MaterialDialog.Instance.SnackbarAsync("An error occured!");
                     return false;
                 }
             }

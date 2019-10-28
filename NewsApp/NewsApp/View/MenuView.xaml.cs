@@ -11,10 +11,10 @@ using Xamarin.Forms.Xaml;
 namespace NewsApp.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuPage : ContentPage
+	public partial class MenuView : ContentPage
 	{
-        readonly IServices services = DependencyService.Get<IServices>();
-		public MenuPage ()
+        //readonly IServices services = DependencyService.Get<IServices>();
+		public MenuView ()
 		{
 			InitializeComponent ();
 		}

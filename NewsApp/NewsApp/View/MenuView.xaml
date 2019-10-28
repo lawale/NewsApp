@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Visual="Material" Title="Navigation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Navigation"
              xmlns:ViewModel="clr-namespace:NewsApp.Core.ViewModel;assembly=NewsApp.Core"
-             x:Class="NewsApp.View.MenuPage">
+             x:Class="NewsApp.View.MenuView">
     <ContentPage.BindingContext>
         <ViewModel:MenuViewModel />
     </ContentPage.BindingContext>

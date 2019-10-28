@@ -19,12 +19,12 @@ namespace NewsApp.Core
         public static IServiceProvider ServiceProvider { get; private set; }
         public static void Init(Action<HostBuilderContext, IServiceCollection> nativeServices = null)
         {
-            var jsonConfig = ExtractResource("appsettings.json");
+            //var jsonConfig = ExtractResource("appsettings.json");
             var host = new HostBuilder()
                 .ConfigureHostConfiguration(config =>
                 {
                     config.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-                    config.AddJsonStream(jsonConfig);
+                    //config.AddJsonStream(jsonConfig);
                 })
                 .ConfigureServices((context, services) =>
                 {
@@ -54,7 +54,7 @@ namespace NewsApp.Core
 
             //Add ViewModels
             services.AddScoped<MenuViewModel>();
-            services.AddTransient<NewsViewModel>();
+            services.AddTransient<ArticlesViewModel>();
             
         }
 

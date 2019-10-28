@@ -21,8 +21,6 @@ namespace NewsApp.Core.Services
         {
             this.logger = logger;
             this.viewFactory = viewFactory;
-            INavigation v;
-
         }
 
         public async Task NavigateForward<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
@@ -51,6 +49,24 @@ namespace NewsApp.Core.Services
             var view = viewFactory.Resolve(viewModel);
             await CurrentPage().Navigation.PushModalAsync(view);
             logger.LogInformation($"Completed Navigation to {view.GetType().Name}");
+        }
+
+        public async Task ChangeDetail<TViewModel>() where TViewModel : class, IViewModel
+        {
+            var navPage = (Application.Current.MainPage as MasterDetailPage).Detail;
+            var rootPage = navPage.Navigation.NavigationStack.FirstOrDefault();
+            var page = viewFactory.Resolve<TViewModel>();
+            rootPage.Navigation.InsertPageBefore(page, rootPage);
+            await rootPage.Navigation.PopToRootAsync();
+        }
+
+        public async Task ChangeDetail<TViewModel>(TViewModel viewModel) where TViewModel : class, IViewModel
+        {
+            var navPage = (Application.Current.MainPage as MasterDetailPage).Detail;
+            var rootPage = navPage.Navigation.NavigationStack.FirstOrDefault();
+            var page = viewFactory.Resolve(viewModel);
+            rootPage.Navigation.InsertPageBefore(page, rootPage);
+            await rootPage.Navigation.PopToRootAsync();
         }
 
         public async Task<object> ModalNavigateBackward() => (await CurrentPage().Navigation.PopModalAsync(true)).BindingContext;

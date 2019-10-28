@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:NewsApp.Core.Converters;assembly=NewsApp.Core"
              xmlns:View="clr-namespace:NewsApp.View"
-             Visual="Material"
              xmlns:behavior="clr-namespace:NewsApp.Behaviors"
              BackgroundColor="White" x:Name="Page"
              Title="{Binding Title}"
-             x:Class="NewsApp.View.ArticlesPage">
+             x:Class="NewsApp.View.ArticlesView">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:DateConverter x:Key="DateConvert"/>

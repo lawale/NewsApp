@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-using Xamarin.Toast;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;

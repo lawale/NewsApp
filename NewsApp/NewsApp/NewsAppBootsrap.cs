@@ -13,8 +13,8 @@ namespace NewsApp
     {
         protected override void RegisterViews(IViewFactory viewFactory)
         {
-            viewFactory.Register<MenuViewModel, MenuPage>();
-            viewFactory.Register<NewsViewModel, ArticlesPage>();
+            viewFactory.Register<MenuViewModel, MenuView>();
+            viewFactory.Register<ArticlesViewModel, ArticlesView>();
         }
     }
 }
