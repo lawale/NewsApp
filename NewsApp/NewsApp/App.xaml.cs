@@ -31,7 +31,7 @@ namespace NewsApp
         {
             var vm = new NewsViewModel(new NewsCategory { CategoryName = topstories });
             var menu = new MenuViewModel();
-            var bootstrapper = new NewsAppBootsrap();
+            var bootstrapper = new NewsAppBootsrap(null);
             bootstrapper.StartAsMasterDetail(menu, vm);
             //var page = new ArticlesPage { BindingContext = vm };
             //services.CurrentPage = page;

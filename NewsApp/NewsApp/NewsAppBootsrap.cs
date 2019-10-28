@@ -1,4 +1,5 @@
-﻿using NewsApp.Core.Factories;
+﻿using NewsApp.Core;
+using NewsApp.Core.Factories;
 using NewsApp.Core.Services;
 using NewsApp.Core.ViewModel;
 using NewsApp.View;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace NewsApp
 {
-    class NewsAppBootsrap : Bootstrapper
+    public class NewsAppBootsrap : Bootstrapper
     {
         protected override void RegisterViews(IViewFactory viewFactory)
         {
